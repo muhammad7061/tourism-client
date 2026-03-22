@@ -6,49 +6,72 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center relative z-50">
-      
-      {/* Logo */}
-      <h1 className="text-lg md:text-xl font-bold text-green-600">
-        🌍 East Africa Tours
-      </h1>
+    <header>
+      <nav className="mx-auto w-[90%] bg-white px-0 py-4 flex justify-between items-center relative z-50 lg:w-[80%]">
 
-      {/* Desktop Menu */}
-      <div className="hidden md:flex gap-6 items-center">
-        <Link to="/" className="hover:text-green-600">Home</Link>
-        <Link to="/tours" className="hover:text-green-600">Tours</Link>
-        <Link to="/bookings" className="hover:text-green-600">My Bookings</Link>
+        {/* Logo */}
 
-        <Link
-          to="/login"
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-        >
-          Login
+        <Link to="/">
+          <div className="flex justify-center items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-8 h-8 text-emerald-600"
+            >
+              <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span className="text-lg md:text-xl font-bold text-green-600">East Africa Tours</span>
+          </div>
         </Link>
-      </div>
 
-      {/* Mobile Icon */}
-      <div className="md:hidden text-xl" onClick={() => setOpen(!open)}>
-        {open ? <FaTimes /> : <FaBars />}
-      </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-4 py-4 md:hidden z-50">
-          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/tours" onClick={() => setOpen(false)}>Tours</Link>
-          <Link to="/bookings" onClick={() => setOpen(false)}>My Bookings</Link>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-6 items-center">
+          <Link to="/" className="hover:text-green-600">Home</Link>
+          <Link to="/tours" className="hover:text-green-600">Tours</Link>
+          <Link to="/bookings" className="hover:text-green-600">My Bookings</Link>
 
           <Link
             to="/login"
-            className="bg-green-600 text-white px-4 py-2 rounded-lg"
-            onClick={() => setOpen(false)}
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
           >
             Login
           </Link>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Icon */}
+        <div className="md:hidden text-xl" onClick={() => setOpen(!open)}>
+          {open ? <FaTimes /> : <FaBars />}
+        </div>
+
+        {/* Mobile Menu */}
+        {open && (
+          <div className="fixed top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-4 py-6 md:hidden z-50 border-t border-green-600">
+            <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+            <Link to="/tours" onClick={() => setOpen(false)}>Tours</Link>
+            <Link to="/bookings" onClick={() => setOpen(false)}>My Bookings</Link>
+
+            <div className="w-[90%]">
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="block w-full text-center bg-green-600 text-white py-2 rounded-xl text-lg font-semibold hover:bg-green-700 transition shadow-md"
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 }
 

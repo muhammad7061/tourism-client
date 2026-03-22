@@ -19,7 +19,7 @@ function Hero() {
   }, []);
 
   return (
-    <div className="relative h-[85vh] md:h-[90vh] w-full overflow-hidden">
+    <div className="relative h-[85vh] md:h-[91vh] w-full overflow-hidden">
 
       {/* Images */}
       {images.map((img, index) => (
@@ -56,7 +56,7 @@ function Hero() {
             placeholder="Search..."
             className="flex-1 px-4 py-3 text-black outline-none"
           />
-          <button className="bg-green-600 text-white px-6 py-3">
+          <button className="bg-green-600 text-white px-6 py-3 cursor-pointer">
             Search
           </button>
         </div>
@@ -67,7 +67,7 @@ function Hero() {
         onClick={() =>
           setCurrent(current === 0 ? images.length - 1 : current - 1)
         }
-        className="hidden md:block absolute left-5 top-1/2 -translate-y-1/2 bg-white/70 p-3 rounded-full"
+        className="hidden cursor-pointer md:block absolute left-5 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-3 max-lg:p-2"
       >
         <FaChevronLeft />
       </button>
@@ -76,7 +76,7 @@ function Hero() {
         onClick={() =>
           setCurrent((current + 1) % images.length)
         }
-        className="hidden md:block absolute right-5 top-1/2 -translate-y-1/2 bg-white/70 p-3 rounded-full"
+        className="hidden cursor-pointer md:block absolute right-5 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-3 max-lg:p-2"
       >
         <FaChevronRight />
       </button>
@@ -87,8 +87,8 @@ function Hero() {
           <div
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full cursor-pointer ${
-              current === index ? "bg-white" : "bg-gray-400"
+            className={`w-5 h-1 md:w-6 md:h-1 sm:w-7 sm:h-2 cursor-pointer ${
+              current === index ? "bg-green-400 border-b-1 border-white" : "bg-gray-200"
             }`}
           />
         ))}

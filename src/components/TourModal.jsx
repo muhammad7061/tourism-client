@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
-import CustomSelect from "./CustomSelect"; // 👈 Import our UI Component
+import CustomSelect from "../components/ui/CustomSelect"; // 👈 Import our UI Component
 
 const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
   const [formData, setFormData] = useState({
@@ -10,11 +10,12 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
     imageURL: "", description: "", highlights: "",
   });
 
+  // 📝 Pre-fill inputs when clicking the Edit Button
   useEffect(() => {
     if (editData) {
       setFormData({
         title: editData.name || "",
-        location: editData.location || "",
+        location: editData.location || editData.country || "", // Fallback
         country: editData.country || "Somalia",
         category: editData.category || "Nature",
         price: editData.price || "",
@@ -29,6 +30,7 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
         highlights: editData.highlights || "",
       });
     } else {
+      // Clear forms for standard Add New Flow
       setFormData({
         title: "", location: "", country: "Somalia", category: "Nature",
         price: "", duration: "", startDate: "", endDate: "",
@@ -42,6 +44,7 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // 🛠️ Custom handler specifically built for custom functional drops
   const handleSelectChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -78,13 +81,15 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {/* ✅ Swapped Country To CustomSelect */}
             <CustomSelect 
               label="Country"
-              options={["Somalia", "Kenya", "Tanzania", "Uganda"]}
+              options={["Somalia", "Kenya", "Tanzania", "Ethiopia"]}
               value={formData.country}
               required={true}
               onChange={(val) => handleSelectChange("country", val)}
             />
+            {/* ✅ Custom Category Select */}
             <CustomSelect 
               label="Category"
               options={["Nature", "Beaches", "Forests", "Farms", "Historical", "Restaurants"]}
@@ -94,7 +99,6 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
             />
           </div>
 
-          {/* (Rest of inputs remain identical - abbreviated for brevity) */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-semibold text-slate-800 mb-1.5">Price (USD) *</label>
@@ -107,6 +111,29 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label className="block text-sm font-semibold text-slate-800 mb-1.5">Start Date *</label>
+              <input type="date" name="startDate" required value={formData.startDate} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"/>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-800 mb-1.5">End Date *</label>
+              <input type="date" name="endDate" required value={formData.endDate} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"/>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label className="block text-sm font-semibold text-slate-800 mb-1.5">Max Guests *</label>
+              <input type="number" name="maxGuests" required value={formData.maxGuests} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"/>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-800 mb-1.5">Available Spots *</label>
+              <input type="number" name="availableSpots" required value={formData.availableSpots} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"/>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {/* ✅ Swapped Status To CustomSelect */}
             <CustomSelect 
               label="Status"
               options={["Active", "Inactive"]}
@@ -123,6 +150,11 @@ const TourModal = ({ isOpen, onClose, onSubmit, editData }) => {
           <div>
             <label className="block text-sm font-semibold text-slate-800 mb-1.5">Description *</label>
             <textarea name="description" rows={4} required value={formData.description} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-800 mb-1.5">Highlights (one per line)</label>
+            <textarea name="highlights" rows={3} value={formData.highlights} onChange={handleChange} className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
           </div>
 
         </form>
